@@ -7,25 +7,29 @@ on:
       - 'docs/**'
   pull_request:
 
+# needed to allow julia-actions/cache to delete old caches that it has created
+permissions:
+  actions: write
+  contents: read
+
 jobs:
   Test:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        julia-version: [1.5.2]
+        julia-version: [1.12.5]         # 2026-02-09
         julia-arch: [x64]
         os: [ubuntu-latest]
         include:
           - julia-version: nightly
             os: ubuntu-latest
+          - julia-version: 1.11.9       # 2026-02-08
+            os: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - uses: julia-actions/setup-julia@latest
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v1
         with:
           version: ${{ matrix.julia-version }}
-      - name: runtests
-        run: |
-             julia             -e 'using Pkg; pkg"registry add https://github.com/JuliaRegistries/General.git"'
-             julia --project=. -e 'using Pkg; pkg"registry add https://github.com/wookay/Registro.git"'
-             julia --project=. -e 'using Pkg; pkg"up"'
-             julia --project=. -e 'using Pkg; Pkg.test()'
+      - uses: julia-actions/cache@v1
+      - uses: julia-actions/julia-buildpkg@v1
+      - uses: julia-actions/julia-runtest@v1
