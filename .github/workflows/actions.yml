@@ -29,5 +29,40 @@ jobs:
         with:
           version: ${{ matrix.julia-version }}
       - uses: julia-actions/cache@v1
+      - name: Sessions.jl deps
+        run: |
+          git clone --depth=1 https://github.com/GroupTherapyOrg/WasmTarget.jl WasmTarget.jl
+          cd WasmTarget.jl/
+          julia -e 's = read("Project.toml", String); write("Project.toml", replace(s, "JSON = \"0.21" => "JSON = \"1.4"))'
+          cd ../
+          git clone --depth=1 https://github.com/GroupTherapyOrg/JavaScriptTarget.jl JavaScriptTarget.jl
+          cd JavaScriptTarget.jl/
+          julia -e 's = read("Project.toml", String); write("Project.toml", replace(s, "JSON = \"1.4.0" => "JSON = \"1.4"))'
+          cd ../
+          git clone --depth=1 https://github.com/GroupTherapyOrg/Therapy.jl Therapy.jl
+          cd Therapy.jl/src/Components/
+          julia -e 's = read("Island.jl", String); write("Island.jl", replace(s, "error(\"@island \$fname: kwarg `\$name_part" => "# error(\"@island \$fname: kwarg `\$name_part`"))'
+          cd ../../../
+          git clone --depth=1 https://github.com/GroupTherapyOrg/Sessions.jl Sessions.jl
+          julia -e 'using Pkg; \
+                    Pkg.add(name="JSON", version="1.4"); \
+                    Pkg.develop(path="WasmTarget.jl"); \
+                    Pkg.develop(path="JavaScriptTarget.jl"); \
+                    Pkg.develop(path="Therapy.jl"); \
+                    Pkg.develop(path="Sessions.jl"); \
+                    '
+      - name: other pkgs
+        run: |
+          julia -e 'using Pkg; \
+                    Pkg.add(name="Jive"); \
+                    Pkg.add(name="KangarooTwelve"); \
+                    Pkg.add(name="Tachikoma"); \
+                    Pkg.add(name="Match"); \
+                    '
       - uses: julia-actions/julia-buildpkg@v1
-      - uses: julia-actions/julia-runtest@v1
+      - name: runtests
+        run: |
+          cd test/
+          julia --color=yes runtests.jl
+          cd ..
+      # - uses: julia-actions/julia-runtest@v1

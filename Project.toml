@@ -10,19 +10,12 @@ KangarooTwelve = "2a5dabf5-6a39-42aa-818d-ce8a58d1b312"
 Tachikoma = "468859d6-42d8-48b7-8ad9-1d312e0e3b0a"
 Match = "7eb4fadd-790c-5f42-8a69-bfa0b872bfbf"
 Sessions = "c3d4e5f6-a7b8-9012-cdef-123456789012"
-WasmTarget = "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
-Therapy = "b2c3d4e5-f6a7-8901-bcde-f12345678901"
-JavaScriptTarget = "91c6ed5a-2d04-438e-9585-7332732578c7"
-JSON = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
 
 [sources]
 Sessions = {url = "https://github.com/GroupTherapyOrg/Sessions.jl", rev = "main"}
-WasmTarget = {url = "https://github.com/GroupTherapyOrg/WasmTarget.jl", rev = "main"}
-Therapy = {url = "https://github.com/GroupTherapyOrg/Therapy.jl", rev = "main"}
-JavaScriptTarget = {url = "https://github.com/GroupTherapyOrg/JavaScriptTarget.jl", rev = "main"}
 
 [targets]
-test = ["Test", "Jive", "KangarooTwelve", "Tachikoma", "Match", "Sessions", "WasmTarget", "Therapy", "JavaScriptTarget", "JSON"]
+test = ["Test", "Jive", "KangarooTwelve", "Tachikoma", "Match", "Sessions"]
 
 [compat]
 julia = "1.12, 1.13"
@@ -31,7 +24,3 @@ KangarooTwelve = "1.0"
 Tachikoma = "1.1"
 Match = "2.4"
 Sessions = "0.1"
-WasmTarget = "0.1"
-Therapy = "0.1"
-JavaScriptTarget = "0.1"
-JSON = "1.4.0, 1.5"
