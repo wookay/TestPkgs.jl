@@ -7,10 +7,16 @@ authors = ["WooKyoung Noh <wookay.noh@gmail.com>"]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 Jive = "ba5e3d4b-8524-549f-bc71-e76ad9e9deed"
 KangarooTwelve = "2a5dabf5-6a39-42aa-818d-ce8a58d1b312"
+Tachikoma = "468859d6-42d8-48b7-8ad9-1d312e0e3b0a"
+Match = "7eb4fadd-790c-5f42-8a69-bfa0b872bfbf"
+Sessions = "c3d4e5f6-a7b8-9012-cdef-123456789012"
 
 [targets]
-test = ["Test", "Jive", "KangarooTwelve"]
+test = ["Test", "Jive", "KangarooTwelve", "Tachikoma", "Match", "Sessions"]
 
 [compat]
 Jive = "0.3"
 KangarooTwelve = "1.0"
+Tachikoma = "1.1"
+Match = "2.4"
+Sessions = "0.1"
