@@ -20,6 +20,7 @@ WasmTarget = {url = "https://github.com/GroupTherapyOrg/WasmTarget.jl", rev = "m
 test = ["Test", "Jive", "KangarooTwelve", "Tachikoma", "Match", "Sessions", "WasmTarget"]
 
 [compat]
+julia = "1.12, 1.13"
 Jive = "0.3"
 KangarooTwelve = "1.0"
 Tachikoma = "1.1"
